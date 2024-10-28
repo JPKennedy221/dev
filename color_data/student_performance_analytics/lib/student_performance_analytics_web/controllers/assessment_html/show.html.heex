@@ -1,0 +1,9 @@
+<h1>Assessment Details</h1>
+<p><strong>Student:</strong> <%= @assessment.student.name %></p>
+<p><strong>Class:</strong> <%= @assessment.class.name %></p>
+<p><strong>Unit:</strong> <%= @assessment.unit.title %></p>
+<p><strong>Assessment Type:</strong> <%= @assessment.assessment_type.name %></p>
+<p><strong>Question Number:</strong> <%= @assessment.question_number %></p>
+<p><strong>Score:</strong> <%= @assessment.score %></p>
+
+<%= link "Back to Assessments", to: Routes.assessment_path(@conn, :index) %>

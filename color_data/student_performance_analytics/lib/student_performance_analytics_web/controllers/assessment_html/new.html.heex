@@ -1,0 +1,25 @@
+<h1>New Assessment</h1>
+<.form_component changeset={@changeset} action={Routes.assessment_path(@conn, :create)}>
+  <:inner_block :let={%{f: f}}>
+    <div>
+      <%= label f, :title, "Assessment Title" %>
+      <%= text_input f, :title %>
+      <%= error_tag f, :title %>
+    </div>
+    <div>
+      <%= label f, :unit_id, "Unit" %>
+      <%= select f, :unit_id, Enum.map(@units, &{&1.title, &1.id}) %>
+      <%= error_tag f, :unit_id %>
+    </div>
+    <div>
+      <%= label f, :assessment_type_id, "Assessment Type" %>
+      <%= select f, :assessment_type_id, Enum.map(@assessment_types, &{&1.name, &1.id}) %>
+      <%= error_tag f, :assessment_type_id %>
+    </div>
+    <div>
+      <%= label f, :date, "Date" %>
+      <%= date_input f, :date %>
+      <%= error_tag f, :date %>
+    </div>
+  </:inner_block>
+</.form_component>

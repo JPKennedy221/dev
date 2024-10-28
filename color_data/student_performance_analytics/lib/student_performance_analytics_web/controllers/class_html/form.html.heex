@@ -1,0 +1,22 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <div>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+  </div>
+  <div>
+    <%= label f, :year %>
+    <%= number_input f, :year %>
+    <%= error_tag f, :year %>
+  </div>
+  <div>
+    <%= label f, :is_active, "Active?" %>
+    <%= checkbox f, :is_active %>
+  </div>
+  <div>
+    <%= label f, :teacher_id, "Teacher" %>
+    <%= select f, :teacher_id, Enum.map(@teachers, &{&1.name, &1.id}) %>
+    <%= error_tag f, :teacher_id %>
+  </div>
+  <%= submit "Save" %>
+<% end %>

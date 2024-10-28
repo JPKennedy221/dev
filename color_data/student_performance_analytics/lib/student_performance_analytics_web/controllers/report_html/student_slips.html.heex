@@ -1,0 +1,30 @@
+<h1>Student Performance Slips for <%= @class.name %></h1>
+
+<%= for {student, assessments} <- @slips do %>
+  <div class="student-slip">
+    <h2><%= student.name %></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Standard</th>
+          <th>Assessment Type</th>
+          <th>Score</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for assessment <- assessments do %>
+          <tr>
+            <td><%= assessment.standard.description %></td>
+            <td><%= assessment.assessment_type.name %></td>
+            <td><%= assessment.score %></td>
+            <td><%= assessment.inserted_at |> Timex.format!("{Mshort} {D}, {YYYY}") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <hr />
+  </div>
+<% end %>
+
+<%= link "Back to Classes", to: Routes.class_path(@conn, :index) %>

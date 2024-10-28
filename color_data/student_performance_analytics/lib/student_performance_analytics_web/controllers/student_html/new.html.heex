@@ -1,0 +1,15 @@
+<h1>New Student</h1>
+<.form_component changeset={@changeset} action={Routes.student_path(@conn, :create)}>
+ <:inner_block :let={%{f: f}}>
+    <div>
+      <%= label f, :name %>
+      <%= text_input f, :name %>
+      <%= error_tag f, :name %>
+    </div>
+    <div>
+      <%= label f, :class_id, "Class" %>
+      <%= select f, :class_id, Enum.map(@classes, &{&1.name, &1.id}) %>
+      <%= error_tag f, :class_id %>
+    </div>
+  </:inner_block>
+</.form_component>

@@ -1,0 +1,10 @@
+<h1>New Unit</h1>
+<.form_component changeset={@changeset} action={Routes.unit_path(@conn, :create)}>
+  <:inner_block :let={%{f: f}}>
+    <div>
+      <%= label f, :title, "Unit Title" %>
+      <%= text_input f, :title %>
+      <%= error_tag f, :title %>
+    </div>
+  </:inner_block>
+</.form_component>

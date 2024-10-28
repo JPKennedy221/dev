@@ -1,0 +1,25 @@
+<h1>Classes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Year</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for class <- @classes do %>
+      <tr>
+        <td><%= class.name %></td>
+        <td><%= class.year %></td>
+        <td><%= StudentPerformanceAnalyticsWeb.ClassHTML.format_active_flag(class.is_active) %></td>
+        <td>
+          <%= link "Edit", to: Routes.class_path(@conn, :edit, class) %> |
+          <%= link "Delete", to: Routes.class_path(@conn, :delete, class), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link "New Class", to: Routes.class_path(@conn, :new) %>

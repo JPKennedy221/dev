@@ -1,0 +1,33 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <div>
+    <%= label f, :student_id, "Student" %>
+    <%= select f, :student_id, Enum.map(@students, &{&1.name, &1.id}) %>
+    <%= error_tag f, :student_id %>
+  </div>
+  <div>
+    <%= label f, :class_id, "Class" %>
+    <%= select f, :class_id, Enum.map(@classes, &{&1.name, &1.id}) %>
+    <%= error_tag f, :class_id %>
+  </div>
+  <div>
+    <%= label f, :unit_id, "Unit" %>
+    <%= select f, :unit_id, Enum.map(@units, &{&1.title, &1.id}) %>
+    <%= error_tag f, :unit_id %>
+  </div>
+  <div>
+    <%= label f, :assessment_type_id, "Assessment Type" %>
+    <%= select f, :assessment_type_id, Enum.map(@assessment_types, &{&1.name, &1.id}) %>
+    <%= error_tag f, :assessment_type_id %>
+  </div>
+  <div>
+    <%= label f, :question_number %>
+    <%= number_input f, :question_number %>
+    <%= error_tag f, :question_number %>
+  </div>
+  <div>
+    <%= label f, :score %>
+    <%= number_input f, :score, min: 1, max: 3 %>
+    <%= error_tag f, :score %>
+  </div>
+  <%= submit "Save" %>
+<% end %>

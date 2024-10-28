@@ -1,0 +1,29 @@
+<h1>Assessment Comparison Report for <%= @class.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Standard</th>
+      <th>Average Score</th>
+      <th>Breakdown (Exceeding / Meeting / Approaching)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for {standard, data} <- @report_data do %>
+      <tr>
+        <td><%= standard.description %></td>
+        <td><%= StudentPerformanceAnalyticsWeb.ReportHTML.format_average_score(data.average_score) %></td>
+        <td>
+          Exceeding: <%= data.exceeding_count %> 
+          (<%= StudentPerformanceAnalyticsWeb.ReportHTML.format_percentage(data.exceeding_count, data.total_count) %>), 
+          Meeting: <%= data.meeting_count %> 
+          (<%= StudentPerformanceAnalyticsWeb.ReportHTML.format_percentage(data.meeting_count, data.total_count) %>), 
+          Approaching: <%= data.approaching_count %> 
+          (<%= StudentPerformanceAnalyticsWeb.ReportHTML.format_percentage(data.approaching_count, data.total_count) %>)
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link "Back to Classes", to: Routes.class_path(@conn, :index) %>

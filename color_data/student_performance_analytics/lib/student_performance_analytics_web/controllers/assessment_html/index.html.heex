@@ -1,0 +1,31 @@
+<h1>Assessments</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Class</th>
+      <th>Unit</th>
+      <th>Assessment Type</th>
+      <th>Question Number</th>
+      <th>Score</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for assessment <- @assessments do %>
+      <tr>
+        <td><%= assessment.student.name %></td>
+        <td><%= assessment.class.name %></td>
+        <td><%= assessment.unit.title %></td>
+        <td><%= assessment.assessment_type.name %></td>
+        <td><%= assessment.question_number %></td>
+        <td><%= assessment.score %></td>
+        <td>
+          <%= link "Edit", to: Routes.assessment_path(@conn, :edit, assessment) %> |
+          <%= link "Delete", to: Routes.assessment_path(@conn, :delete, assessment), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link "New Assessment", to: Routes.assessment_path(@conn, :new) %>

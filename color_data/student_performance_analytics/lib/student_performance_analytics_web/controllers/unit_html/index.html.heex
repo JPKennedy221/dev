@@ -1,0 +1,21 @@
+<h1>Units</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for unit <- @units do %>
+      <tr>
+        <td><%= unit.title %></td>
+        <td>
+          <%= link "Edit", to: Routes.unit_path(@conn, :edit, unit) %> |
+          <%= link "Delete", to: Routes.unit_path(@conn, :delete, unit), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link "New Unit", to: Routes.unit_path(@conn, :new) %>
