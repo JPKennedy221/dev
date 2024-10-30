@@ -1,0 +1,45 @@
+defmodule StudentPerformanceAnalyticsWeb.UserConfirmationLive do
+  use StudentPerformanceAnalyticsWeb, :live_view
+  alias StudentPerformanceAnalytics.Accounts
+  import Phoenix.VerifiedRoutes  # Add this line
+  import StudentPerformanceAnalyticsWeb.CoreComponents  # Import core components
+  import StudentPerformanceAnalyticsWeb.FormComponents
+  def render(assigns) do
+    ~H"""
+    <div class="mx-auto max-w-sm">
+      <.header class="text-center">
+        Confirm Your Account
+        <:subtitle>Enter your email to resend confirmation</:subtitle>
+      </.header>
+
+      <.simple_form for={@form} id="confirmation_form" phx-submit="send_instructions">
+        <.input field={@form[:email]} type="email" placeholder="Email" required />
+        <:actions>
+          <.button phx-disable-with="Sending...">Resend Confirmation</.button>
+        </:actions>
+      </.simple_form>
+
+      <p class="text-center mt-4">
+        <.link href={Routes.user_registration_path(@socket, :new)}>Register</.link>
+        | <.link href={Routes.user_session_path(@socket, :new)}>Log in</.link>
+      </p>
+    </div>
+    """
+  end
+
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, form: to_form(%{}, as: "user"))}
+  end
+
+  def handle_event("send_instructions", %{"user" => %{"email" => email}}, socket) do
+    if user = Accounts.get_user_by_email(email) do
+      Accounts.deliver_user_confirmation_instructions(
+        user,
+        &Routes.user_confirmation_url(socket, :confirm, &1)
+      )
+    end
+
+    info = "If your email is registered, a confirmation email will be sent shortly."
+    {:noreply, socket |> put_flash(:info, info) |> redirect(to: Routes.page_path(socket, :index))}
+  end
+end

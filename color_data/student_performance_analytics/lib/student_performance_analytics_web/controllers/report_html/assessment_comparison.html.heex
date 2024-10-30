@@ -1,0 +1,14 @@
+<h1>Assessment Comparison Report</h1>
+
+<div>
+  <%= for %{standard: standard, avg_score: avg_score} <- @assessment_data do %>
+    <div>
+      <strong><%= standard %>:</strong> Average Score: <%= avg_score %>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <a href={Routes.report_path(@conn, :download_csv, :assessment_comparison, @params)} target="_blank">Download CSV</a> |
+  <a href={Routes.report_path(@conn, :download_pdf, :assessment_comparison, @params)} target="_blank">Download PDF</a>
+</div>

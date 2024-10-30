@@ -1,0 +1,12 @@
+<h1>Register</h1>
+<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+  <%= label f, :email %>
+  <%= text_input f, :email %>
+  <%= error_tag f, :email %>
+
+  <%= label f, :password %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+
+  <%= submit "Register" %>
+</.form>

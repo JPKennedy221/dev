@@ -1,6 +1,6 @@
 defmodule StudentPerformanceAnalyticsWeb.ClassHTML do
   use StudentPerformanceAnalyticsWeb, :html
-  import StudentPerformanceAnalyticsWeb.FormComponent
+  import StudentPerformanceAnalyticsWeb.FormComponents
 
   embed_templates "class_html/*"
 

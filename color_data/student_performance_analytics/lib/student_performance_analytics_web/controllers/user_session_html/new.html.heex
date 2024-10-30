@@ -1,0 +1,10 @@
+<h1>Log in</h1>
+<.form let={f} for={:user} action={Routes.user_session_path(@conn, :create)}>
+  <%= label f, :email %>
+  <%= text_input f, :email %>
+
+  <%= label f, :password %>
+  <%= password_input f, :password %>
+
+  <%= submit "Log in" %>
+</.form>

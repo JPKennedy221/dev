@@ -1,4 +1,4 @@
-defmodule StudentPerformanceAnalyticsWeb.FormComponent do
+defmodule StudentPerformanceAnalyticsWeb.FormComponents do
   use Phoenix.Component
   import Phoenix.HTML.Form
 
@@ -10,6 +10,15 @@ defmodule StudentPerformanceAnalyticsWeb.FormComponent do
   slot :inner_block, required: true
 
   def form_component(assigns) do
+    ~H"""
+    <%= form_for @changeset, @action, fn f -> %>
+      <%= render_slot(@inner_block, %{f: f}) %>
+      <%= submit "Save" %>
+    <% end %>
+    """
+  end
+
+  def simple_form(assigns) do
     ~H"""
     <%= form_for @changeset, @action, fn f -> %>
       <%= render_slot(@inner_block, %{f: f}) %>

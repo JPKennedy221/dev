@@ -32,6 +32,7 @@ defmodule StudentPerformanceAnalytics.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:phoenix_html, "~> 3.0"},
@@ -45,8 +46,7 @@ defmodule StudentPerformanceAnalytics.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:ecto_sql, "~> 3.10"},        # Added Ecto for database integration
-      {:postgrex, ">= 0.0.0"},       # PostgreSQL adapter
-      {:bcrypt_elixir, "~> 2.0"}     # Password hashing for authentication
+      {:postgrex, ">= 0.0.0"}      # PostgreSQL adapter
     ]
   end
 

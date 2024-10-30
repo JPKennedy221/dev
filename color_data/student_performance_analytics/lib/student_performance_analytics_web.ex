@@ -8,8 +8,11 @@ defmodule StudentPerformanceAnalyticsWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: StudentPerformanceAnalyticsWeb
+      import Phoenix.Controller
+      import Phoenix.VerifiedRoutes  # Add this line
       import Plug.Conn
       import StudentPerformanceAnalyticsWeb.Gettext
+      @router StudentPerformanceAnalyticsWeb.Router
       alias StudentPerformanceAnalyticsWeb.Router.Helpers, as: Routes
     end
   end
@@ -22,11 +25,11 @@ defmodule StudentPerformanceAnalyticsWeb do
       import Phoenix.HTML.Form
       import Phoenix.HTML.Link
       import Phoenix.Component
-
+      import Phoenix.VerifiedRoutes
       # Import core components
       import StudentPerformanceAnalyticsWeb.CoreComponents
-      import StudentPerformanceAnalyticsWeb.FormComponent
-
+      import StudentPerformanceAnalyticsWeb.FormComponents
+      @router StudentPerformanceAnalyticsWeb.Router
       # Import route helpers
       alias StudentPerformanceAnalyticsWeb.Router.Helpers, as: Routes
 
@@ -40,9 +43,12 @@ defmodule StudentPerformanceAnalyticsWeb do
     quote do
       use Phoenix.LiveView,
         layout: {StudentPerformanceAnalyticsWeb.Layouts, :app_layout}
+      import Phoenix.VerifiedRoutes
 
       import Phoenix.LiveView.Helpers
       import StudentPerformanceAnalyticsWeb.CoreComponents
+      import StudentPerformanceAnalyticsWeb.FormComponents
+      @router StudentPerformanceAnalyticsWeb.Router
       alias StudentPerformanceAnalyticsWeb.Router.Helpers, as: Routes
       import StudentPerformanceAnalyticsWeb.Gettext
     end
@@ -53,7 +59,10 @@ defmodule StudentPerformanceAnalyticsWeb do
     quote do
       use Phoenix.LiveComponent
       import Phoenix.LiveView.Helpers
+      import Phoenix.VerifiedRoutes
       import StudentPerformanceAnalyticsWeb.CoreComponents
+      import StudentPerformanceAnalyticsWeb.FormComponents
+      @router StudentPerformanceAnalyticsWeb.Router
       alias StudentPerformanceAnalyticsWeb.Router.Helpers, as: Routes
       import StudentPerformanceAnalyticsWeb.Gettext
     end
@@ -62,10 +71,12 @@ defmodule StudentPerformanceAnalyticsWeb do
   # Use this for routing
   def router do
     quote do
+      @router StudentPerformanceAnalyticsWeb.Router
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import Phoenix.VerifiedRoutes  # Add this line
     end
   end
 
@@ -73,7 +84,11 @@ defmodule StudentPerformanceAnalyticsWeb do
   def channel do
     quote do
       use Phoenix.Channel
+      @router StudentPerformanceAnalyticsWeb.Router
       import StudentPerformanceAnalyticsWeb.Gettext
+      import Phoenix.VerifiedRoutes  # Add this line
+      import StudentPerformanceAnalyticsWeb.CoreComponents
+      import StudentPerformanceAnalyticsWeb.FormComponents
     end
   end
 

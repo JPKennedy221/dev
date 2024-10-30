@@ -24,4 +24,4 @@ Gets sense he's retaining from memory but not studying
 
 ONe Google Doc for Latin - same doc everyday 
 
-  
+    import Phoenix.VerifiedRoutes  # Add this line

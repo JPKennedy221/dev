@@ -1,6 +1,6 @@
 defmodule StudentPerformanceAnalyticsWeb.ReportHTML do
   use StudentPerformanceAnalyticsWeb, :html
-  import StudentPerformanceAnalyticsWeb.FormComponent
+  import StudentPerformanceAnalyticsWeb.FormComponents
   embed_templates "report_html/*"
 
   def format_average_score(average) do

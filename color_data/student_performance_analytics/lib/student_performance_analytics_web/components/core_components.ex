@@ -22,4 +22,16 @@ defmodule StudentPerformanceAnalyticsWeb.CoreComponents do
     </select>
     """
   end
+
+  def input(assigns) do
+    ~H"""
+    <input type={@type} name={@field} placeholder={@placeholder} required={@required} />
+    """
+  end
+
+  def header(assigns) do
+    ~H"""
+    <h1 class={@class}><%= render_slot(@inner_block) %></h1>
+    """
+  end
 end
