@@ -1,0 +1,4 @@
+<script setup lang="ts">
+const nav=[['Dashboard','/'],['Roles','/roles'],['Schools','/schools'],['Accounts','/accounts'],['Courses','/courses'],['Rosters','/rosters'],['Standards','/standards'],['Assessment Units','/assessment-units'],['Unit Standards','/assessment-unit-standards'],['Assessments','/assessments'],['Assessment Standards','/assessment-standards'],['Assignments','/assignments']]
+</script>
+<template><div class="shell"><aside><div class="brand"><span>✦</span> nudge</div><p class="caption">EDUCATION MANAGEMENT</p><nav><NuxtLink v-for="item in nav" :key="item[1]" :to="item[1]">{{ item[0] }}</NuxtLink></nav></aside><main><header><div><p class="eyebrow">Nudge workspace</p><h1>Education, made simple.</h1></div><button class="avatar">JP</button></header><NuxtPage /></main></div></template>

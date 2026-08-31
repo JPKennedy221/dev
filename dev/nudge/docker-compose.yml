@@ -1,0 +1,30 @@
+services:
+  app:
+    image: node:22-bookworm
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports: ["3000:3000"]
+    volumes: [".:/app"]
+    environment:
+      DATABASE_URL: postgres://nudge:nudge@db:5432/nudge
+    depends_on: [db]
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: nudge
+      POSTGRES_USER: nudge
+      POSTGRES_PASSWORD: nudge
+    ports: ["5432:5432"]
+    volumes: ["nudge_pgdata:/var/lib/postgresql/data"]
+  flyway:
+    image: flyway/flyway:10-alpine
+    profiles: ["tools"]
+    command: -connectRetries=60 migrate
+    depends_on: [db]
+    volumes: ["./db/migration:/flyway/sql"]
+    environment:
+      FLYWAY_URL: jdbc:postgresql://db:5432/nudge
+      FLYWAY_USER: nudge
+      FLYWAY_PASSWORD: nudge
+volumes:
+  nudge_pgdata:
