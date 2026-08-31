@@ -44,7 +44,7 @@ defmodule StudentPerformanceAnalyticsWeb do
       use Phoenix.LiveView,
         layout: {StudentPerformanceAnalyticsWeb.Layouts, :app_layout}
       import Phoenix.VerifiedRoutes
-
+      import Phoenix.HTML
       import Phoenix.LiveView.Helpers
       import StudentPerformanceAnalyticsWeb.CoreComponents
       import StudentPerformanceAnalyticsWeb.FormComponents
@@ -58,6 +58,7 @@ defmodule StudentPerformanceAnalyticsWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+      import Phoenix.HTML
       import Phoenix.LiveView.Helpers
       import Phoenix.VerifiedRoutes
       import StudentPerformanceAnalyticsWeb.CoreComponents
@@ -73,6 +74,7 @@ defmodule StudentPerformanceAnalyticsWeb do
     quote do
       @router StudentPerformanceAnalyticsWeb.Router
       use Phoenix.Router
+      import Phoenix.HTML
       import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
@@ -84,6 +86,7 @@ defmodule StudentPerformanceAnalyticsWeb do
   def channel do
     quote do
       use Phoenix.Channel
+      import Phoenix.HTML
       @router StudentPerformanceAnalyticsWeb.Router
       import StudentPerformanceAnalyticsWeb.Gettext
       import Phoenix.VerifiedRoutes  # Add this line

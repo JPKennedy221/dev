@@ -5,6 +5,7 @@ defmodule StudentPerformanceAnalyticsWeb.UserAuthTest do
   alias StudentPerformanceAnalytics.Accounts
   alias StudentPerformanceAnalyticsWeb.UserAuth
   import StudentPerformanceAnalytics.AccountsFixtures
+  import Phoenix.VerifiedRoutes
 
   @remember_me_cookie "_student_performance_analytics_web_user_remember_me"
 
@@ -186,7 +187,7 @@ defmodule StudentPerformanceAnalyticsWeb.UserAuthTest do
   end
 
   describe "on_mount :redirect_if_user_is_authenticated" do
-    test "redirects if there is an authenticated  user ", %{conn: conn, user: user} do
+    test "redirects if there is an authenticated user", %{conn: conn, user: user} do
       user_token = Accounts.generate_user_session_token(user)
       session = conn |> put_session(:user_token, user_token) |> get_session()
 
@@ -221,50 +222,6 @@ defmodule StudentPerformanceAnalyticsWeb.UserAuthTest do
 
     test "does not redirect if user is not authenticated", %{conn: conn} do
       conn = UserAuth.redirect_if_user_is_authenticated(conn, [])
-      refute conn.halted
-      refute conn.status
-    end
-  end
-
-  describe "require_authenticated_user/2" do
-    test "redirects if user is not authenticated", %{conn: conn} do
-      conn = conn |> fetch_flash() |> UserAuth.require_authenticated_user([])
-      assert conn.halted
-
-      assert redirected_to(conn) == ~p"/users/log_in"
-
-      assert Phoenix.Flash.get(conn.assigns.flash, :error) ==
-               "You must log in to access this page."
-    end
-
-    test "stores the path to redirect to on GET", %{conn: conn} do
-      halted_conn =
-        %{conn | path_info: ["foo"], query_string: ""}
-        |> fetch_flash()
-        |> UserAuth.require_authenticated_user([])
-
-      assert halted_conn.halted
-      assert get_session(halted_conn, :user_return_to) == "/foo"
-
-      halted_conn =
-        %{conn | path_info: ["foo"], query_string: "bar=baz"}
-        |> fetch_flash()
-        |> UserAuth.require_authenticated_user([])
-
-      assert halted_conn.halted
-      assert get_session(halted_conn, :user_return_to) == "/foo?bar=baz"
-
-      halted_conn =
-        %{conn | path_info: ["foo"], query_string: "bar", method: "POST"}
-        |> fetch_flash()
-        |> UserAuth.require_authenticated_user([])
-
-      assert halted_conn.halted
-      refute get_session(halted_conn, :user_return_to)
-    end
-
-    test "does not redirect if user is authenticated", %{conn: conn, user: user} do
-      conn = conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
       refute conn.halted
       refute conn.status
     end

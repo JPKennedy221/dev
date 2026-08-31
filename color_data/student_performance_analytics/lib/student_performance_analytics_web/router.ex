@@ -8,6 +8,8 @@ defmodule StudentPerformanceAnalyticsWeb.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
+    plug :put_root_layout, {StudentPerformanceAnalyticsWeb.Layouts, :app}
+    plug :put_layout, {StudentPerformanceAnalyticsWeb.Layouts, :app}
     plug :put_secure_browser_headers
     plug :fetch_current_user
   end

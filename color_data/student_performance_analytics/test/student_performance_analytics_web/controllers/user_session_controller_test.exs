@@ -1,6 +1,6 @@
 defmodule StudentPerformanceAnalyticsWeb.UserSessionControllerTest do
   use StudentPerformanceAnalyticsWeb.ConnCase, async: true
-
+  import Phoenix.VerifiedRoutes
   import StudentPerformanceAnalytics.AccountsFixtures
 
   setup do

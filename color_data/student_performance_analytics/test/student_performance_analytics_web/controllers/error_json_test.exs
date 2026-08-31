@@ -1,6 +1,6 @@
 defmodule StudentPerformanceAnalyticsWeb.ErrorJSONTest do
   use StudentPerformanceAnalyticsWeb.ConnCase, async: true
-
+  import Phoenix.VerifiedRoutes
   test "renders 404" do
     assert StudentPerformanceAnalyticsWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
   end

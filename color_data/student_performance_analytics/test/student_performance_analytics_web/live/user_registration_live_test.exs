@@ -3,7 +3,7 @@ defmodule StudentPerformanceAnalyticsWeb.UserRegistrationLiveTest do
 
   import Phoenix.LiveViewTest
   import StudentPerformanceAnalytics.AccountsFixtures
-
+  import Phoenix.VerifiedRoutes
   describe "Registration page" do
     test "renders registration page", %{conn: conn} do
       {:ok, _lv, html} = live(conn, ~p"/users/register")

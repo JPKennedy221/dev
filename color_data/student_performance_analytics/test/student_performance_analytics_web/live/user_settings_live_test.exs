@@ -4,6 +4,7 @@ defmodule StudentPerformanceAnalyticsWeb.UserSettingsLiveTest do
   alias StudentPerformanceAnalytics.Accounts
   import Phoenix.LiveViewTest
   import StudentPerformanceAnalytics.AccountsFixtures
+  import Phoenix.VerifiedRoutes
 
   describe "Settings page" do
     test "renders settings page", %{conn: conn} do

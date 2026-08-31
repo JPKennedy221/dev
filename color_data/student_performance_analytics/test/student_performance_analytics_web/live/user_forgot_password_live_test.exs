@@ -3,7 +3,7 @@ defmodule StudentPerformanceAnalyticsWeb.UserForgotPasswordLiveTest do
 
   import Phoenix.LiveViewTest
   import StudentPerformanceAnalytics.AccountsFixtures
-
+  import Phoenix.VerifiedRoutes
   alias StudentPerformanceAnalytics.Accounts
   alias StudentPerformanceAnalytics.Repo
 

@@ -2,12 +2,9 @@ defmodule StudentPerformanceAnalytics.ReportsTest do
   use StudentPerformanceAnalytics.DataCase
 
   alias StudentPerformanceAnalytics.Reports
-  alias StudentPerformanceAnalytics.Accounts.{Student, Class}
-  alias StudentPerformanceAnalytics.Standards.Standard
-  alias StudentPerformanceAnalytics.Assessments.{Assessment, AssessmentType}
 
   setup do
-    # Setup sample data
+    # Insert sample data for testing
     class = insert!(:class, name: "Math 101")
     unit = insert!(:unit, title: "Algebra Basics")
     standard = insert!(:standard, name: "Solving Equations")
@@ -18,7 +15,7 @@ defmodule StudentPerformanceAnalytics.ReportsTest do
   end
 
   describe "get_assessment_comparison_report/3" do
-    test "returns the average score per standard for a class", %{class: class, unit: unit, standard: standard, assessment_type: assessment_type} do
+    test "returns average scores per standard for a class", %{class: class, unit: unit, standard: standard, assessment_type: assessment_type} do
       insert!(:assessment, score: 3, class_id: class.id, unit_id: unit.id, standard_id: standard.id, assessment_type_id: assessment_type.id)
       insert!(:assessment, score: 2, class_id: class.id, unit_id: unit.id, standard_id: standard.id, assessment_type_id: assessment_type.id)
 
@@ -28,7 +25,7 @@ defmodule StudentPerformanceAnalytics.ReportsTest do
   end
 
   describe "get_student_slip_report/2" do
-    test "returns each student's performance on standards in a unit", %{student: student, unit: unit, standard: standard, assessment_type: assessment_type} do
+    test "returns individual student performance across standards in a unit", %{student: student, unit: unit, standard: standard, assessment_type: assessment_type} do
       insert!(:assessment, score: 3, student_id: student.id, unit_id: unit.id, standard_id: standard.id, assessment_type_id: assessment_type.id)
 
       result = Reports.get_student_slip_report(student.id, unit.id)

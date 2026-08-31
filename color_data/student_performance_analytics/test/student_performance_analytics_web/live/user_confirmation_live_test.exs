@@ -6,7 +6,7 @@ defmodule StudentPerformanceAnalyticsWeb.UserConfirmationLiveTest do
 
   alias StudentPerformanceAnalytics.Accounts
   alias StudentPerformanceAnalytics.Repo
-
+  import Phoenix.VerifiedRoutes
   setup do
     %{user: user_fixture()}
   end

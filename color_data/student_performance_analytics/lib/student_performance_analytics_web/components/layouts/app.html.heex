@@ -1,46 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= assigns[:page_title] || "Student Performance Analytics" %></title>
+  <%= csrf_meta_tag() %>
+  <%= live_title_tag(assigns[:page_title] || "Student Performance Analytics") %>
+  <link rel="stylesheet" href={path(@conn,~p"/css/app.css")}>
+</head>
+<body>
 <header>
   <%= @inner_content %>
   <nav class="flex items-center justify-end px-4 sm:px-6 lg:px-8 gap-4">
-    <ul class="relative z-10 flex items-center gap-4">
+    <ul class="flex items-center gap-4">
       <%= if @current_user do %>
-        <li class="text-[0.8125rem] leading-6 text-zinc-900">
-          <%= @current_user.email %>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Settings
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/log_out"}
-            method="delete"
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Log out
-          </.link>
-        </li>
+        <li><%= @current_user.email %></li>
+        <li><.link href={path(@conn,~p"/users/log_out")} method="delete">Log out</.link></li>
       <% else %>
-        <li>
-          <.link
-            href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Register
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/log_in"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Log in
-          </.link>
-        </li>
+        <li><.link href={path(@conn,~p"/users/register")}>Register</.link></li>
+        <li><.link href={path(@conn,~p"/users/log_in")}>Log in</.link></li>
       <% end %>
     </ul>
   </nav>
 </header>
+</body>
+</html>
