@@ -12,7 +12,10 @@ async function remove(id: unknown) {
   await load()
 }
 await load()
-const columns = computed(() => rows.value.length ? Object.keys(rows.value[0]).filter(k => !['createdAt', 'updatedAt'].includes(k)) : ['id'])
+const columns = computed(() => {
+  const firstRow = rows.value[0]
+  return firstRow ? Object.keys(firstRow).filter(k => !['createdAt', 'updatedAt'].includes(k)) : ['id']
+})
 </script>
 <template>
   <section>
