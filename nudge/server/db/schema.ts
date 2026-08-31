@@ -1,6 +1,7 @@
+import { sql } from 'drizzle-orm'
 import {
   bigint, boolean, check, date, integer, index, numeric, pgSchema, text,
-  timestamp, uniqueIndex, sql,
+  timestamp, uniqueIndex,
 } from 'drizzle-orm/pg-core'
 
 const app = pgSchema('app')
