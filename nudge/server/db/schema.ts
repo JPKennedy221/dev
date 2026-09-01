@@ -91,3 +91,17 @@ export const tables = {
   assessment, assessmentStandard, assignment,
 }
 export type Resource = keyof typeof tables
+
+export const resourceFieldMap = {
+  role: ['name', 'description'],
+  school: ['name', 'abbreviation', 'address', 'streetAddress', 'city', 'state', 'postalCode', 'country', 'isActive'],
+  account: ['schoolId', 'firstName', 'lastName', 'middleName', 'email', 'phoneNumber', 'roleId', 'isActive'],
+  course: ['name', 'abbreviation', 'startDate', 'endDate', 'isActive'],
+  roster: ['schoolId', 'accountId', 'courseId'],
+  standard: ['name', 'shortName', 'referenceIds'],
+  assessmentUnit: ['courseId', 'name', 'abbreviation'],
+  assessmentUnitStandard: ['assessmentUnitId', 'standardId'],
+  assessment: ['assessmentUnitId', 'name', 'scoringScale', 'maxScore', 'minScore', 'defaultScore', 'placeholderScore'],
+  assessmentStandard: ['assessmentId', 'standardId'],
+  assignment: ['rosterId', 'assessmentId', 'score', 'attemptNumber', 'completedAt', 'version'],
+} as const

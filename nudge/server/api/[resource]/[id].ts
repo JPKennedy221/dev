@@ -1,5 +1,6 @@
 import { db } from '../../db/client'
 import { getResource } from '../../utils/resource'
+import { validateResourceFields } from '../../utils/validate-resource'
 import { eq } from 'drizzle-orm'
 
 export default defineEventHandler(async event => {
@@ -13,9 +14,8 @@ export default defineEventHandler(async event => {
   }
   if (event.method === 'PUT') {
     const body = await readBody(event)
-    if (!body || typeof body !== 'object') throw createError({ statusCode: 400, statusMessage: 'JSON body required' })
-    delete body.id
-    const [row] = await db().update(table).set({ ...body, updatedAt: new Date() }).where(eq(table.id, id)).returning()
+    const validated = validateResourceFields(getRouterParam(event, 'resource') as any, body)
+    const [row] = await db().update(table).set({ ...validated, updatedAt: new Date() }).where(eq(table.id, id)).returning()
     if (!row) throw createError({ statusCode: 404, statusMessage: 'Not found' })
     return row
   }
