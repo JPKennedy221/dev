@@ -4,10 +4,11 @@ import { getResourceDisplayName, getResourceFields } from '~/utils/resource-sche
 const props = defineProps<{ resource: string; title: string }>()
 const rows = ref<Record<string, unknown>[]>([])
 const error = ref('')
+const resourcePath = computed(() => `/api/${String(props.resource)}` as string)
 
 async function load() {
   try {
-    rows.value = await $fetch(`/api/${props.resource}`) as Record<string, unknown>[]
+    rows.value = await $fetch<Record<string, unknown>[]>(resourcePath.value)
   } catch (err: any) {
     error.value = err?.data?.message || 'Unable to load records.'
   }
@@ -15,7 +16,7 @@ async function load() {
 
 async function remove(id: unknown) {
   if (!confirm('Delete this record?')) return
-  await $fetch(`/api/${props.resource}/${id}`, { method: 'DELETE' })
+  await $fetch(`${resourcePath.value}/${String(id)}` as string, { method: 'DELETE' })
   await load()
 }
 
