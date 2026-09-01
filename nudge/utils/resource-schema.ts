@@ -12,7 +12,7 @@ export const resourceAliases = {
   assignments: 'assignment',
 } as const
 
-export const resourceFields = {
+export const resourceFields: Record<string, readonly string[]> = {
   roles: ['name', 'description'],
   schools: ['name', 'abbreviation', 'address', 'streetAddress', 'city', 'state', 'postalCode', 'country', 'isActive'],
   accounts: ['schoolId', 'firstName', 'lastName', 'middleName', 'email', 'phoneNumber', 'roleId', 'isActive'],
@@ -24,9 +24,9 @@ export const resourceFields = {
   assessments: ['assessmentUnitId', 'name', 'scoringScale', 'maxScore', 'minScore', 'defaultScore', 'placeholderScore'],
   'assessment-standards': ['assessmentId', 'standardId'],
   assignments: ['rosterId', 'assessmentId', 'score', 'attemptNumber', 'completedAt', 'version'],
-} as const
+}
 
-export const resourceDisplayNames = {
+export const resourceDisplayNames: Record<string, { singular: string; plural: string }> = {
   roles: { singular: 'Role', plural: 'Roles' },
   schools: { singular: 'School', plural: 'Schools' },
   accounts: { singular: 'Account', plural: 'Accounts' },
@@ -38,14 +38,14 @@ export const resourceDisplayNames = {
   assessments: { singular: 'Assessment', plural: 'Assessments' },
   'assessment-standards': { singular: 'Assessment Standard', plural: 'Assessment Standards' },
   assignments: { singular: 'Assignment', plural: 'Assignments' },
-} as const
+}
 
-export function getResourceFields(resource: string) {
+export function getResourceFields(resource: string): string[] {
   const key = resource as keyof typeof resourceFields
   if (!(key in resourceFields)) {
     console.warn(`[Resource Schema] Unknown resource: "${resource}". Check resourceFields configuration.`)
   }
-  return resourceFields[key] ?? []
+  return Array.from(resourceFields[key] ?? [])
 }
 
 export function getResourceDisplayName(resource: string, plural = false) {
@@ -63,7 +63,7 @@ export function getInputType(field: string) {
 }
 
 export function normalizeResourceFormData(resource: string, form: Record<string, unknown>) {
-  const allowedFields = new Set(getResourceFields(resource))
+  const allowedFields = new Set<string>(getResourceFields(resource))
   const sanitized: Record<string, unknown> = {}
 
   for (const [key, value] of Object.entries(form)) {

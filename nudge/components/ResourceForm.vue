@@ -2,16 +2,17 @@
 import { getInputType, getResourceFields, normalizeResourceFormData } from '~/utils/resource-schema'
 
 const props = defineProps<{ resource: string; title: string; id?: string }>()
-const fields = computed(() => getResourceFields(props.resource))
+const fields = computed<string[]>(() => getResourceFields(props.resource))
 const form = reactive<Record<string, unknown>>({})
 const error = ref('')
+const resourcePath = computed(() => `/api/${String(props.resource)}` as string)
 
 const loadForm = async () => {
   form.id = undefined
   for (const field of fields.value) form[field] = undefined
 
   if (props.id) {
-    const row = await $fetch(`/api/${props.resource}/${props.id}`) as Record<string, unknown>
+    const row = await $fetch<Record<string, unknown>>(`${resourcePath.value}/${String(props.id)}` as string)
     for (const field of fields.value) {
       if (field in row) {
         form[field] = getInputType(field) === 'checkbox' ? Boolean(row[field]) : row[field]
@@ -29,7 +30,8 @@ watchEffect(loadForm)
 async function submit() {
   try {
     const payload = normalizeResourceFormData(props.resource, form)
-    await $fetch(props.id ? `/api/${props.resource}/${props.id}` : `/api/${props.resource}`, {
+    const url = props.id ? `${resourcePath.value}/${String(props.id)}` as string : resourcePath.value
+    await $fetch(url, {
       method: props.id ? 'PUT' : 'POST',
       body: payload,
     })
